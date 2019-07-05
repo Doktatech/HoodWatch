@@ -19,7 +19,11 @@ class Notices(models.Model):
     title=models.CharField(max_length=50)
     details=models.TextField()
     status= models.CharField(max_length=50, choices=Status_Choices,default='1')
+    pub_date = models.DateTimeField(auto_now_add=True)
     def __str__(self):
         return self.title
     def save_notices(self):
         self.save()
+    class Meta:
+        ordering =['status']
+    
