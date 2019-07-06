@@ -37,9 +37,9 @@ class Notices(models.Model):
         self.save()
     class Meta:
         ordering =['status']
-    # @classmethod
-    # def get_notices(cls):
-    #     today = dt.date.today()
-    #     notices=cls.objects.filter(pub_date__date=today)
-    #     return notices
+    @classmethod
+    def get_notices(cls):
+        today = dt.date.today()
+        notices=cls.objects.filter(pub_date__date=today)
+        return notices
     
