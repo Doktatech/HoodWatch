@@ -1,0 +1,48 @@
+{%extends 'all-posts/base.html'%}
+{{block.super}}
+{% block content %}
+
+<div style="background-color: rgb(255, 255, 255); padding-bottom: 45px;" class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+
+        </div>
+        <div  class="col-md-4">
+            <div class="card">
+                {% if request.user.is_authenticated %} 
+                <h1>You are already Logged In</h1>
+                {% else%}
+                <div style="text-align: center; background-image: url('https://images.pexels.com/photos/2395255/pexels-photo-2395255.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');"  class="card-header">
+                    <h2> <img float="right" src="https://www.kyoceradocumentsolutions.com/products/awards/images/mv-top-sp_award.jpg" alt="" height="90px"> Sign up</h2>
+                </div>
+                
+                   
+                    <div style="background-image: url('https://images.pexels.com/photos/2395255/pexels-photo-2395255.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');" class="card-body">
+                            <form method="post">
+                                    {% csrf_token %}
+                                      {% for field in form %}
+                                      <p>
+                                        {{ field.label_tag }}<br>
+                                        {{ field }}
+                                        {% if field.help_text %}
+                                          <small style="display: none">{{ field.help_text }}</small>
+                                        {% endif %}
+                                        {% for error in field.errors %}
+                                          <p style="color: red">{{ error }}</p>
+                                        {% endfor %}
+                                      </p>
+                                      {% endfor %}
+                                    <button class="btn btn-danger" id="btn-2" type="submit">Sign up</button>
+                                  </form>
+                    </div>
+                    {% endif%}
+                    
+            </div>  
+        </div>
+        <div class="col-md-4">
+
+        </div>
+    </div>
+</div>
+  
+{% endblock %}
