@@ -75,7 +75,23 @@ def notice_new(request,id):
         return render(request,'new_notice.html',{"form":form,"notice":notice,"hood":hood,  "date":date})
 def hoods(request,id):
     date = dt.date.today()
-    post=Neighbourhood.objects.get(id=id)
-    brushs = Notices.objects.filter(neighbourhood=post)
-    business = Business.objects.filter(neighbourhood=post)
-    return render(request,'each_hood.html',{"post":post,"date":date,"brushs":brushs, "business":business})
+    post=Neighborhood.objects.get(id=id)
+    # brushs = Notices.objects.filter(neighbourhood=post) "brushs":brushs
+    business = Business.objects.filter(neighborhood=post)
+    return render(request,'each_hood.html',{"post":post,"date":date, "business":business})
+def post_business(request,id):
+    date = dt.date.today()
+    hood=Neighborhood.objects.get(id=id)
+    business = Business.objects.filter(neighborhood=hood)
+    form = BusinessForm()
+    if request.method == 'POST':
+        form = BusinessForm(request.POST, request.FILES)
+        if form.is_valid():
+            business = form.save(commit=False)
+            business.profile = request.user.profile
+            business.neighbourhood = hood
+            business.save()
+            return redirect('landing')
+    else:
+        form = BusinessForm()
+        return render(request,'new_business.html',{"form":form,"business":business,"hood":hood,  "date":date})
