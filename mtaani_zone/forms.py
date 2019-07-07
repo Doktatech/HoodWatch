@@ -14,10 +14,10 @@ class EditForm(forms.ModelForm):
         model = Profile
         fields = ['bio','profile_pic']
 
-# class HoodForm(forms.ModelForm):
-#     class Meta:
-#         model = Neighbourhood
-#         exclude = ['admin']
+class HoodForm(forms.ModelForm):
+    class Meta:
+        model = Neighbourhood
+        exclude = ['admin']
 
 # class PostForm(forms.ModelForm):
 #     class Meta:
