@@ -15,6 +15,7 @@ urlpatterns=[
     # url(r'^map$', views.maps, name='maps'),
     url(r'^hoods/new/business/(\d+)$',views.post_business, name='new-business'),
     url(r'^hoods/(\d+)',views.hoods,name='hoods'),
+    url(r'^signup/$', views.signup, name='signup'),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
