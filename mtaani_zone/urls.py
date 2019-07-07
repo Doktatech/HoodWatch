@@ -13,7 +13,7 @@ urlpatterns=[
     url(r'^new/hood$', views.new_hood, name='new-hood'),
     url(r'^hoods/new/notice/(\d+)$', views.notice_new, name='new-notice'),
     # url(r'^map$', views.maps, name='maps'),
-    # url(r'^hoods/new/business/(\d+)$',views.post_business, name='new-business'),
+    url(r'^hoods/new/business/(\d+)$',views.post_business, name='new-business'),
     url(r'^hoods/(\d+)',views.hoods,name='hoods'),
 ]
 if settings.DEBUG:
