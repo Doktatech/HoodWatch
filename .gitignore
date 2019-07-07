@@ -1,1 +1,5 @@
+.vscode
 virtual/
+__pycache__/
+db.sqlite3
+.env
