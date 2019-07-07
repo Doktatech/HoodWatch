@@ -19,10 +19,10 @@ class HoodForm(forms.ModelForm):
         model = Neighbourhood
         exclude = ['admin']
 
-# class PostForm(forms.ModelForm):
-#     class Meta:
-#         model = Post
-#         exclude = ['user', 'neighbourhood']
+class NoticeForm(forms.ModelForm):
+    class Meta:
+        model = Notices
+        exclude = ['user', 'neighborhood']
 
 # class BusinessForm(forms.ModelForm):
 #     class Meta:
