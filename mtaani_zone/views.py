@@ -1,7 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http  import HttpResponse
 import datetime as dt
-from .models import Business, Notices, Profile
+from .models import Business, Notices, Profile, Neighborhood
 
 
 # Create your views here.
@@ -52,7 +52,24 @@ def new_hood(request):
             hood.user = current_user
             hood.profile = profile
             hood.save()
-        return redirect('index')
+        return redirect('landing')
     else:
         form = HoodForm()
     return render(request, 'new_hood.html', {"form": form})
+def notice_new(request,id):
+    date = dt.date.today()
+    hood=Neighborhood.objects.get(id=id)
+    notice= Notices.objects.filter(neighbourhood=hood)
+    form = NoticeForm()
+    if request.method == 'POST':
+        form = NoticeForm(request.POST, request.FILES)
+        if form.is_valid():
+            notice = form.save(commit=False)
+            notice.user = request.user.profile
+            notice.profile = profile
+            notice.neighborhood = hood
+            notice.save()
+            return redirect('landing')
+    else:
+        form = NoticeForm()
+        return render(request,'new_notice.html',{"form":form,"notice":notice,"hood":hood,  "date":date})
