@@ -23,6 +23,9 @@ def business(request,business_id):
     except DoesNotExist:
         raise Http404()        
     return render(request,"single_business.html",{"business":business})
-# def profile(request):
-#     profile=Profile.get_profiles()
-#     return render(request,'landing.html',{"profile":profile})
+def profile(request):
+    date = dt.date.today()
+    current_user = request.user
+    profile = Profile.objects.get(user=current_user.id)
+    hoods = Neighbourhood.objects.all()
+    return render(request, 'profile/profile.html', {"date": date, "profile":profile,"hoods":hoods})
