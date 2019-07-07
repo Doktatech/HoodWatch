@@ -2,48 +2,40 @@
 
 {% block content %}
 {{block.super}}
-<div class="container-fluid">
+<div style="text-align:center; padding-top: 130px; padding-bottom: 130px; " class="container-fluid" id="moda">
+
+        <div class="content text-center">
+                <h1 data-hover="HoodWatch!!!!!!"> Welcome  To  Neighbor-Hood</h1>
+              </div>
+              <h4 style="text-align:center; color:rgb(253, 253, 253);">{% now "jS F Y H:i" %}
+            </h4>    
+</div>
+<div class="container">
+    <hr>  <a href="{% url 'new-hood'%}"><button class="btn btn-outline-light btn-sm">Create a Hood</button></a>  <hr>
     <div class="row">
-        <div class="col-md-7 border-right">
-            <section class="no-touch">
-
-                <div class="wrap">
-                  {% for business_item in business  %}      
-                  
-                  <div class="box">
-                    <div class="boxInner">
-                        <div class="titleBox" >{{business_item.name}}</div>
-                        <img src="{{business_item.business_image.url}}"  class="img-responsive">
-                              
+        {% for hood in hoods%}
+            <div class="col-md-4 col-lg-4 col-sm-6 ">
+                <div style="" class="card">
+                    <div style="text-align:center; color:antiquewhite; background-color:#2E151B;" class="card-header">
+                        <h5>{{ hood.neigborhood_name}}</h5>
                     </div>
-                    
-                  </div>
-                  </a>
-                  {% endfor %}
-              
+                    <div style="text-align:center; background-color:#2E151B;" class="card-image">
+                        
+                            <img class="img-responsive" src="{{hood.image.url}}" alt="" height="200px" width="300px">
+                        
+                    </div>
+                    <div style="background-color:#2E151B;" class="card-footer"> 
+                        <a href="/hoods/{{ hood.id}}"> <button class="btn btn-outline-primary btn-sm">Join Hood &#8594;</button> </a>
+                    </div>
                 </div>
-              
-              </section>   
-        </div>        
-        <div class='col-md-4'>
-          <h1>Hello</h1>
-          <!-- {% for photos_item in photos %}
-            {% if photos_item.profile_pic %}
-            <section data-toggle="modal" data-target="#modalLoginAvatar"> <img  style="border-radius: 50% ; padding: 0.15rem;  width: 45px; background: linear-gradient(to right bottom, #2cd88888, #2ec96970);" class=" img-circle"
-            src="{{ photos_item.profile_pic.url}}" alt="" width="50px" height="50px"> <a href="/profiles/{{ photos_item.profile.user.id}}" style="color:black">{{ photos_item.profile.user.username}}</a>  </section> <br>
-            {% else %}
-            <img data-toggle="modal" data-target="#modalLoginAvatar" style="border-radius: 50% ; padding: 0.15rem;  width: 45px; background: linear-gradient(to right bottom, #2cd88888, #2ec96970);" class=" img-circle"
-            src="http://s3.amazonaws.com/37assets/svn/765-default-avatar.png" alt="" width="50px" height="50px""> <a href="/profiles/{{ photos_item.profile.user.id}}" style="color:black">{{ photos_item.profile.user.username}}</a></section> <br> 
-                            
-            {% endif %}
-          {% endfor %}
-          <div> -->
-
-          </div>
-
-        </div>
+                <br>
+            <br>
+            </div>
+            
+        {% endfor%}
     </div>
 </div>
-
-
+<div style="color:aliceblue;"  id="quotes" class="container-fluid">
+        
+</div>
 {% endblock %}
