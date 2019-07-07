@@ -7,7 +7,15 @@ from . import views
 urlpatterns=[
     url('^$',views.landing,name='Landing'),
     url(r'^search/', views.search_results, name='search_results'),
-    url(r'^business/(\d+)',views.business,name ='business')
+    url(r'^business/(\d+)',views.business,name ='business'),
+    url(r'^profile/$',views.profile,name='profile'),
+    # url(r'^edit/profile/$',views.edit_profile,name='edit_profile'),
+    # url(r'^search/', views.search_results, name='search_results'),
+    # url(r'^new/hood$', views.new_hood, name='new-hood'),
+    # url(r'^hoods/new/post/(\d+)$', views.post_new, name='new-post'),
+    # url(r'^map$', views.maps, name='maps'),
+    # url(r'^hoods/new/business/(\d+)$',views.post_business, name='new-business'),
+    # url(r'^hoods/(\d+)',views.hoods,name='hoods'),
 ]
 if settings.DEBUG:
     urlpatterns+= static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
