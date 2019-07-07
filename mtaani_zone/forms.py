@@ -24,7 +24,7 @@ class NoticeForm(forms.ModelForm):
         model = Notices
         exclude = ['user', 'neighborhood']
 
-# class BusinessForm(forms.ModelForm):
-#     class Meta:
-#             model = Business
-#             exclude = ['neighbourhood', 'profile']
+class BusinessForm(forms.ModelForm):
+    class Meta:
+            model = Business
+            exclude = ['neighborhood', 'profile']
