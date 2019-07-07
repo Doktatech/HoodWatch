@@ -3,9 +3,9 @@
 <div class="container">
 <div class="row">
     {% if businesses%}
-      <h2>Found {{ businesses|length }} of searched term {{message}}</h2>
+      <h2 style="color: lawngreen">Found {{ businesses|length }} of searched term {{message}}</h2>
     {% else %}
-      <h2> Found 0 Business for the search term {{message}}</h2>
+      <h2 style="color: lawngreen"> Found 0 Business for the search term {{message}}</h2>
     {% endif %}
 
   </div>
