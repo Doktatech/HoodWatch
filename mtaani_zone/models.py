@@ -1,6 +1,7 @@
 from django.db import models
 import datetime as dt
 from django.contrib.auth.models import User
+# from django.core.validators import email_re
 
 # Create your models here.
 class Profile(models.Model):
@@ -45,8 +46,19 @@ class Business(models.Model):
     business_image = models.ImageField(upload_to = 'photos/')
     neighborhood = models.ForeignKey(Neighborhood, related_name='businesses')
     profile = models.ForeignKey(Profile, related_name='profiles')
+    email = models.EmailField(max_length=70,blank=True, null= True, unique= True)
+
     def __str__(self):
         return self.name
+    # def save(self, *args, **kwargs):
+    # # ... other things not important here
+    #     self.email = self.email.lower().strip() # Hopefully reduces junk to ""
+    #     if self.email != "": # If it's not blank
+    #         if not email_re.match(self.email): # If it's not an email address
+    #             raise ValidationError(u'%s is not an email address, dummy!' % self.email)
+    #     if self.email == "":
+    #         self.email = None
+    #     super(Business, self).save(*args, **kwargs)
     def save_business(self):
         self.save()
     @classmethod
