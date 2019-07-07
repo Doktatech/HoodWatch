@@ -13,7 +13,7 @@
 
 {% block styles %}
     {% bootstrap_css %}
-    <link rel="stylesheet" href="{% static 'css/proj.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 {% endblock %}
 
 </head>
@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-md-6">
                     <img style="border-radius:50%; width:100px; height:100px;" src="{{post.image.url}}" alt="" class="img-thumbnail">
-                    <span style="color:antiquewhite;">{{ post.name}}</span><span style="color:red;" class="icon-heart">&#10084;</span>
+                    <span style="color:antiquewhite;">{{ post.title}}</span><span style="color:red;" class="icon-heart">&#10084;</span>
             </div>
             <div class="col-md-6">
                 <br>
@@ -38,24 +38,26 @@
         <hr>
         <nav>
             <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Posts</a>
+                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Notifications</a>
                 <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Business</a>
             </div>
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
                 <br>
-                <a href="/hoods/new/post/{{post.id}}"><button class="btn btn-lignt"><i class="large material-icons">add_box</i>Add Post</button></a> 
+                <a href="/hoods/new/notice/{{post.id}}"><button class="btn btn-lignt"><i class="large material-icons">add_box</i>Add Notice</button></a> 
                 <br>
                 <br>
-                <h3>Posts</h3>
+                <h3>Notifications</h3>
                 <div class="row">
                     <div class="col-md-6">
                             {% for brushs_item in brushs%}
                     
                             <div style="" class="card">
-                                <div style="color:antiquewhite; background-color:rgb(10, 10, 10);" class="card-header">
-                                    <p>{{brushs_item.post}}</p>
+                                <div style="color:rgb(96, 230, 7); background-color:rgb(10, 10, 10);" class="card-header">
+                                    <p>{{brushs_item.pub_date}} </p>
+                                    <p style="text-decoration-line: underline">{{brushs_item.title}}</p>&nbsp;
+                                    <p>{{brushs_item.details}} </p>
                                 </div>
                                 <div style="text-align:center; background-color:rgb(10, 10, 10);" class="card-image">
                                     
@@ -63,7 +65,7 @@
                                     
                                 </div>
                                 <div style="background-color:rgb(10, 10, 10);" class="card-footer"> 
-                                    <a href="#"> <button class="btn btn-outline-primary btn-sm">like</button> </a>
+                                    <a href="#"> <button class="btn btn-outline-primary btn-sm">Seen?</button> </a>
                                 </div>
                             </div>
                             <br>
@@ -74,8 +76,7 @@
                         
                     </div>
                 </div>
-                    
-                        
+                                      
                 
                 
             
@@ -88,18 +89,18 @@
                             {% for business_item in business%}
                             <div class="col-md-4">
                                     <div style="" class="card">
-                                            <div style="color:antiquewhite; background-color:rgb(10, 10, 10);" class="card-header">
+                                            <div style="color:rgb(56, 250, 8); background-color:rgb(10, 10, 10);" class="card-header">
                                                 <h5>{{business_item.name}}</h5>
                                             </div>
                                             <div style="text-align:center; background-color:rgb(10, 10, 10);" class="card-body">
-                                              <img src="{{business_item.image.url}}" alt="" height="250px" width="310px">
+                                              <img src="{{business_item.business_image.url}}" alt="" height="250px" width="310px">
                                               
                                         </div>
                                         
                                         <div style="background-color:rgb(10, 10, 10);" class="card-footer"> 
-                                            <small>Phone no. <strong>{{business_item.phone_number}}</strong></small>
+                                            <small style="color:rgb(56, 250, 8)">Email address. <strong style="color:rgb(243, 0, 0)">{{business_item.email}}</strong></small>
                                             <br>
-                                            <small>Category: <strong>{{business_item.category}}</strong></small>
+                                            <small style="color:rgb(56, 250, 8)">Category: <strong style="color:rgb(243, 0, 0)">{{business_item.business_type}}</strong></small>
                                         </div>
                                     </div><br>
                             <br>
