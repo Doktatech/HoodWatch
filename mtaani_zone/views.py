@@ -3,6 +3,7 @@ from django.http  import HttpResponse
 import datetime as dt
 from .forms import *
 from .models import Business, Notices, Profile, Neighborhood
+from django.contrib.auth.models import User
 
 
 # Create your views here.
@@ -60,7 +61,7 @@ def new_hood(request):
 def notice_new(request,id):
     date = dt.date.today()
     hood=Neighborhood.objects.get(id=id)
-    notice= Notices.objects.filter(neighbourhood=hood)
+    notice= Notices.objects.filter(neighborhood=hood)
     form = NoticeForm()
     if request.method == 'POST':
         form = NoticeForm(request.POST, request.FILES)
@@ -70,14 +71,14 @@ def notice_new(request,id):
             notice.profile = profile
             notice.neighborhood = hood
             notice.save()
-            return redirect('landing')
+            return redirect('Landing')
     else:
         form = NoticeForm()
         return render(request,'new_notice.html',{"form":form,"notice":notice,"hood":hood,  "date":date})
 def hoods(request,id):
     date = dt.date.today()
     post=Neighborhood.objects.get(id=id)
-    brushs = Notices.objects.filter(neighbourhood=post) 
+    brushs = Notices.objects.filter(neighborhood=post) 
     business = Business.objects.filter(neighborhood=post)
     return render(request,'each_hood.html',{"post":post,"date":date, "brushs":brushs,"business":business})
 def post_business(request,id):
@@ -90,9 +91,9 @@ def post_business(request,id):
         if form.is_valid():
             business = form.save(commit=False)
             business.profile = request.user.profile
-            business.neighbourhood = hood
+            business.neighborhood = hood
             business.save()
-            return redirect('landing')
+            return redirect('Landing')
     else:
         form = BusinessForm()
         return render(request,'new_business.html',{"form":form,"business":business,"hood":hood,  "date":date})
