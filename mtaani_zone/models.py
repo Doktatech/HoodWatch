@@ -34,6 +34,7 @@ class Neighborhood(models.Model):
     neigborhood_location=models.CharField(max_length=70,blank=False,null=True)
     occupants_count=models.IntegerField(blank=False, null= False)
     admin = models.ForeignKey(Profile, related_name='hoods', null=True)
+    image = models.ImageField(upload_to='neighborimage/', null=True)
 
 
 class Business(models.Model):
