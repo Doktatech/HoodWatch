@@ -1,13 +1,13 @@
 from django.shortcuts import render,redirect
 from django.http  import HttpResponse
 import datetime as dt
-from .models import Business, Notices
+from .models import Business, Notices, Profile
 
 
 # Create your views here.
 def landing(request): 
-    business=Business.get_business()   
-    return render(request, 'landing.html',{"business":business})
+    hoods = Neighborhood.objects.all()     
+    return render(request, 'landing.html',{"hoods":hoods})
 def search_results(request):
     if 'business' in request.GET and request.GET["business"]:
         search_term =request.GET.get("business")
@@ -23,3 +23,6 @@ def business(request,business_id):
     except DoesNotExist:
         raise Http404()        
     return render(request,"single_business.html",{"business":business})
+# def profile(request):
+#     profile=Profile.get_profiles()
+#     return render(request,'landing.html',{"profile":profile})
