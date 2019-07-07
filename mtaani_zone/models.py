@@ -63,10 +63,12 @@ class Notices(models.Model):
         ('2','Necessary'),
         ('3','Unessential'),
     )
+    user = models.ForeignKey(Profile, related_name='profile')
     title=models.CharField(max_length=50)
     details=models.TextField()
     status= models.CharField(max_length=50, choices=Status_Choices,default='None')
     pub_date = models.DateTimeField(auto_now_add=True)
+    neighborhood = models.ForeignKey(Neighborhood, related_name='posts')
     def __str__(self):
         return self.title
     def save_notices(self):
