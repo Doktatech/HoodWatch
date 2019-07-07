@@ -70,6 +70,8 @@ TEMPLATES = [
         },
     },
 ]
+# Django registration days
+ACCOUNT_ACTIVATION_DAYS = 3 # 3 days 
 
 WSGI_APPLICATION = 'mtaani.wsgi.application'
 
