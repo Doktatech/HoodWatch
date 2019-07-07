@@ -73,3 +73,9 @@ def notice_new(request,id):
     else:
         form = NoticeForm()
         return render(request,'new_notice.html',{"form":form,"notice":notice,"hood":hood,  "date":date})
+def hoods(request,id):
+    date = dt.date.today()
+    post=Neighbourhood.objects.get(id=id)
+    brushs = Notices.objects.filter(neighbourhood=post)
+    business = Business.objects.filter(neighbourhood=post)
+    return render(request,'each_hood.html',{"post":post,"date":date,"brushs":brushs, "business":business})
