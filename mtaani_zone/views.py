@@ -4,12 +4,23 @@ import datetime as dt
 from .forms import *
 from .models import Business, Notices, Profile, Neighborhood
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login, authenticate
+from django.contrib.sites.shortcuts import get_current_site
+from django.utils.encoding import force_bytes, force_text
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.template.loader import render_to_string
+from .tokens import account_activation_token
+from django.contrib.auth.models import User
+from django.core.mail import EmailMessage
 
 
 # Create your views here.
 def landing(request): 
     hoods = Neighborhood.objects.all()     
     return render(request, 'landing.html',{"hoods":hoods})
+
+@login_required(login_url='/accounts/login/')
 def search_results(request):
     if 'business' in request.GET and request.GET["business"]:
         search_term =request.GET.get("business")
@@ -19,12 +30,16 @@ def search_results(request):
     else:
         message = "You haven't searched for any Business"
         return render(request, 'search.html',{"message":message})
+
+
+@login_required(login_url='/accounts/login/')
 def business(request,business_id):
     try:
         business= Business.objects.get(id=business_id)
     except DoesNotExist:
         raise Http404()        
     return render(request,"single_business.html",{"business":business})
+
 def profile(request):
     date = dt.date.today()
     current_user = request.user
@@ -44,6 +59,7 @@ def edit_profile(request):
         signup_form =EditForm() 
         
     return render(request, 'profile/edit_profile.html', {"date": date, "form":signup_form,"profile":profile})
+@login_required(login_url='/accounts/login/')
 def new_hood(request):
     current_user = request.user
     profile = Profile.objects.get(user=current_user)
@@ -58,6 +74,7 @@ def new_hood(request):
     else:
         form = HoodForm()
     return render(request, 'new_hood.html', {"form": form})
+@login_required(login_url='/accounts/login/')
 def notice_new(request,id):
     date = dt.date.today()
     hood=Neighborhood.objects.get(id=id)
@@ -75,12 +92,15 @@ def notice_new(request,id):
     else:
         form = NoticeForm()
         return render(request,'new_notice.html',{"form":form,"notice":notice,"hood":hood,  "date":date})
+
+@login_required(login_url='/accounts/login/')
 def hoods(request,id):
     date = dt.date.today()
     post=Neighborhood.objects.get(id=id)
     brushs = Notices.objects.filter(neighborhood=post) 
     business = Business.objects.filter(neighborhood=post)
     return render(request,'each_hood.html',{"post":post,"date":date, "brushs":brushs,"business":business})
+@login_required(login_url='/accounts/login/')
 def post_business(request,id):
     date = dt.date.today()
     hood=Neighborhood.objects.get(id=id)
