@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http  import HttpResponse
 import datetime as dt
+from .forms import *
 from .models import Business, Notices, Profile, Neighborhood
 
 
@@ -52,7 +53,7 @@ def new_hood(request):
             hood.user = current_user
             hood.profile = profile
             hood.save()
-        return redirect('landing')
+        return redirect('Landing')
     else:
         form = HoodForm()
     return render(request, 'new_hood.html', {"form": form})
@@ -76,9 +77,9 @@ def notice_new(request,id):
 def hoods(request,id):
     date = dt.date.today()
     post=Neighborhood.objects.get(id=id)
-    # brushs = Notices.objects.filter(neighbourhood=post) "brushs":brushs
+    brushs = Notices.objects.filter(neighbourhood=post) 
     business = Business.objects.filter(neighborhood=post)
-    return render(request,'each_hood.html',{"post":post,"date":date, "business":business})
+    return render(request,'each_hood.html',{"post":post,"date":date, "brushs":brushs,"business":business})
 def post_business(request,id):
     date = dt.date.today()
     hood=Neighborhood.objects.get(id=id)
