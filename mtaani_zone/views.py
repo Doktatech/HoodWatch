@@ -20,5 +20,6 @@ def search_results(request):
 def business(request,business_id):
     try:
         business= Business.objects.get(id=business_id)
-    except ValueError:
-        return render(request,"single_article.html","business":business)
+    except DoesNotExist:
+        raise Http404()        
+    return render(request,"single_business.html",{"business":business})
